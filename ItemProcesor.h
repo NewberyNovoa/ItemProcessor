@@ -27,8 +27,8 @@ class ItemProcessor{
     bool readFile();
     bool process(list<string>::iterator &);
     void closeFiles();
-    void insertionSort(vector<int> &);
-    void bubbleSort(vector<int> &);
+    static void insertionSort(vector<int> &);
+    static void bubbleSort(vector<int> &);
     vector<int> build_vector(string &);
     void writeFile(vector <int> &v);
     
