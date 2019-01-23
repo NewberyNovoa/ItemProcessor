@@ -1,0 +1,16 @@
+#include <iostream> 
+#include "ItemProcesor.h"
+
+using namespace std;
+
+int main(int argc, char** argv)
+{
+
+    ItemProcessor ip (argv[1], argv[2]);
+    if(ip.start())
+    	cout<<"Done.."<<endl;
+    else
+    	cout<<"Error"<<endl;
+
+    return 0;
+}

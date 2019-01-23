@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/newrishn/Documents/Smartmatic/Cmake/ItemProcesor.h
+iostream
+-
+thread
+-
+mutex
+-
+fstream
+-
+list
+-
+vector
+-
+chrono
+-
+
+/Users/newrishn/Documents/Smartmatic/Cmake/main.cpp
+iostream
+-
+ItemProcesor.h
+/Users/newrishn/Documents/Smartmatic/Cmake/ItemProcesor.h
+
