@@ -175,11 +175,11 @@ bool ItemProcessor::process(list<string>::iterator &it)
     //mtxRead.unlock();
     mtxRead.unlock();                        // next item to proces
     vector<int> vectorNoBlanks = build_vector(item); // build the vector
-    
-    if(sortMethod == "insertionSort")
-      insertionSort(vectorNoBlanks);  //sort the vector
+
+    if(sortMethod == "bubbleSort")
+      bubbleSort(vectorNoBlanks);  //sort the vector
     else
-      bubbleSort(vectorNoBlanks);
+      insertionSort(vectorNoBlanks);
 
     writeFile(vectorNoBlanks); // write in file the vector  
 
