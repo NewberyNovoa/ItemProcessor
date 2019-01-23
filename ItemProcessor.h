@@ -24,7 +24,7 @@ class ItemProcessor{
   
   protected:
     bool openFiles();
-    bool readFile();
+    bool produce();
     bool process(list<string>::iterator &);
     void closeFiles();
     static void insertionSort(vector<int> &);
@@ -34,14 +34,15 @@ class ItemProcessor{
     
   
   private:
-    string inputFilePath, outputFilePath;
-  	list<string> itemsList;
-  	mutex mtxRead, mtxWrite;
-    ifstream inputFile;
+    string inputFilePath, outputFilePath;   //path files
+  	list<string> itemsList;                 //Buffer
+  	mutex mtxRead, mtxWrite;                // mutex for critical sections
+    ifstream inputFile;                     //Files
     ofstream outputFile;
-    string sortMethod;
+    string sortMethod;                      //input for sortMethod
 };
 
+//Check files
 bool ItemProcessor::openFiles(){
 
 inputFile.open(inputFilePath);
@@ -53,12 +54,15 @@ else
   return true;
 
 }
+
+//Close files
 void ItemProcessor::closeFiles(){
   inputFile.close();
   outputFile.close();
 }
 
-bool ItemProcessor::readFile(){
+//Produce data to buffer
+bool ItemProcessor::produce(){
 
   string item;
   
@@ -75,6 +79,7 @@ bool ItemProcessor::readFile(){
 
 }
 
+//Buld vector with no blanks
 vector<int> ItemProcessor::build_vector(string &line)
 {
            //Unlock the mutex (locked in line 80) inorder to another thread can build another vector at same time
@@ -97,6 +102,7 @@ vector<int> ItemProcessor::build_vector(string &line)
 
 }
 
+//insertionSort
 void ItemProcessor::insertionSort(vector<int> &vectorNoBlanks){
 
   cout<<"Sorting "<<endl;
@@ -115,6 +121,7 @@ void ItemProcessor::insertionSort(vector<int> &vectorNoBlanks){
     }
 }
 
+//Bubblesort
 void ItemProcessor::bubbleSort(vector<int> &vectorNoBlanks) 
 { 
    int i, j, tmp; 
@@ -139,21 +146,24 @@ void ItemProcessor::bubbleSort(vector<int> &vectorNoBlanks)
    } 
 }
 
+//Write on file the processed item
 void ItemProcessor::writeFile (vector <int> &v)
 {
   
   string lineSorted;
-  mtxWrite.lock(); // critical section (exclusive access to the outputfile signaled by locking mtxWrite):
+  
 
-   //Writing in the outputFile the sorted vector and separeted by comas
+   //Build a string of the processed item
   for (vector<int>::iterator it=v.begin(); it != v.end(); ++it)
   {
     
-    lineSorted+= to_string(*it);
-    outputFile << *it << ","; 
+    lineSorted+= to_string(*it) + ",";
+    //outputFile << *it << ","; 
     
   }
 
+  mtxWrite.lock(); // critical section (exclusive access to the outputfile signaled by locking mtxWrite):
+  outputFile<<lineSorted;//Writing in the outputFile the sorted vector and separeted by comas
   cout<<lineSorted<<endl;
   outputFile << '\n';//Adding end line after wiriting the line
   cout<<"Writing in file "<<endl;
@@ -161,11 +171,12 @@ void ItemProcessor::writeFile (vector <int> &v)
 
 }
 
+//Consumer porcess for items
 bool ItemProcessor::process(list<string>::iterator &it)
 {
   cout<<"ProcessingLine "<<endl;
   mtxRead.lock();   
-  while (it != itemsList.end())   //while are items to proces
+  while (it != itemsList.end())   //while are items to proces in buffer
   {             
     
     string item = *it;// store the item in a temp variable in order to gabe acces to the information to anther thread
@@ -191,8 +202,11 @@ bool ItemProcessor::process(list<string>::iterator &it)
 bool ItemProcessor::start(){
 
     bool couldOpen = openFiles();
-    bool wasFileRead = readFile();
-    bool isOK = couldOpen + wasFileRead;
+    bool wasFileRead = produce();
+    bool isOK = false;
+
+    if(couldOpen && wasFileRead)
+      isOK = true;
 
     
     if (itemsList.empty())

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/newrishn/Documents/ItemProcessor/ItemProcesor.h
+/Users/newrishn/Documents/ItemProcessor/ItemProcessor.h
 iostream
 -
 thread
@@ -25,6 +25,6 @@ chrono
 /Users/newrishn/Documents/ItemProcessor/main.cpp
 iostream
 -
-ItemProcesor.h
-/Users/newrishn/Documents/ItemProcessor/ItemProcesor.h
+ItemProcessor.h
+/Users/newrishn/Documents/ItemProcessor/ItemProcessor.h
 
