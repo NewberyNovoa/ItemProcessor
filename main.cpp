@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char** argv)
 {
 
-    ItemProcessor ip (argv[1], argv[2]);
+    ItemProcessor ip (argv[1], argv[2], argv[3]);
     if(ip.start())
     	cout<<"Done.."<<endl;
     else

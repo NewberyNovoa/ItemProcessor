@@ -13,10 +13,10 @@ using namespace std;
 class ItemProcessor{
   public:
     ItemProcessor();
-    ItemProcessor(const string &inputFilePath, const string &outputFilePath){
+    ItemProcessor(const string &inputFilePath, const string &outputFilePath, const string &sortMethod ){
       this-> inputFilePath = inputFilePath;
       this-> outputFilePath = outputFilePath;
-
+      this-> sortMethod = sortMethod;
     }
     //~ItemProcessor();
 
@@ -28,6 +28,7 @@ class ItemProcessor{
     bool process(list<string>::iterator &);
     void closeFiles();
     void insertionSort(vector<int> &);
+    void bubbleSort(vector<int> &);
     vector<int> build_vector(string &);
     void writeFile(vector <int> &v);
     
@@ -38,6 +39,7 @@ class ItemProcessor{
   	mutex mtxRead, mtxWrite;
     ifstream inputFile;
     ofstream outputFile;
+    string sortMethod;
 };
 
 bool ItemProcessor::openFiles(){
@@ -113,6 +115,30 @@ void ItemProcessor::insertionSort(vector<int> &vectorNoBlanks){
     }
 }
 
+void ItemProcessor::bubbleSort(vector<int> &vectorNoBlanks) 
+{ 
+   int i, j, tmp; 
+   bool swapped; 
+   for (i = 0; i < (int)vectorNoBlanks.size()-1; i++) 
+   { 
+     swapped = false; 
+     for (j = 0; j < (int)vectorNoBlanks.size()-i-1; j++) 
+     { 
+        if (vectorNoBlanks[j] > vectorNoBlanks[j+1]) 
+        { 
+          tmp = vectorNoBlanks[j];
+          vectorNoBlanks[j]=vectorNoBlanks[j+1];
+          vectorNoBlanks[j+1] = tmp; 
+          swapped = true; 
+        } 
+     } 
+  
+     // IF no two elements were swapped by inner loop, then break 
+     if (swapped == false) 
+        break; 
+   } 
+}
+
 void ItemProcessor::writeFile (vector <int> &v)
 {
   
@@ -149,7 +175,12 @@ bool ItemProcessor::process(list<string>::iterator &it)
     //mtxRead.unlock();
     mtxRead.unlock();                        // next item to proces
     vector<int> vectorNoBlanks = build_vector(item); // build the vector
-    insertionSort(vectorNoBlanks);  //sort the vector
+    
+    if(sortMethod == "insertionSort")
+      insertionSort(vectorNoBlanks);  //sort the vector
+    else
+      bubbleSort(vectorNoBlanks);
+
     writeFile(vectorNoBlanks); // write in file the vector  
 
   }

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/newrishn/Documents/Smartmatic/Cmake
+# Install script for directory: /Users/newrishn/Documents/ItemProcessor
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/newrishn/Documents/Smartmatic/Cmake/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/newrishn/Documents/ItemProcessor/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

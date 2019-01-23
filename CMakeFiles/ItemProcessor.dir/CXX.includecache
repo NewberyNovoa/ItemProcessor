@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/newrishn/Documents/Smartmatic/Cmake/ItemProcesor.h
+/Users/newrishn/Documents/ItemProcessor/ItemProcesor.h
 iostream
 -
 thread
@@ -22,9 +22,9 @@ vector
 chrono
 -
 
-/Users/newrishn/Documents/Smartmatic/Cmake/main.cpp
+/Users/newrishn/Documents/ItemProcessor/main.cpp
 iostream
 -
 ItemProcesor.h
-/Users/newrishn/Documents/Smartmatic/Cmake/ItemProcesor.h
+/Users/newrishn/Documents/ItemProcessor/ItemProcesor.h
 
